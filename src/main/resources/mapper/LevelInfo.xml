@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SQL.LEVELINFO"> 
+  <select id="selectLevelInfo" resultType="li">
+    select * from level_info
+    <where>
+    	<if test="liNum!=null">
+    	 liNum = #{liNum}
+    	</if>
+    	<if test="liLevel!=null">
+    	liLevel =#{liLevel}
+    	</if>
+    	<if test="liName!=null">
+    	liName like '%'||#{liName}||'%' </if>
+    	<if test="liDesc!=null">
+    	liDesc like '%'||#{liDesc}||'%' </if>
+    </where>
+  </select>
+  
+  <insert id="insertLevelInfo" parameterType="li">
+  insert into level_info(liNum,liLevel,liName,liDesc)
+  values(seq_linum.nextval,#{liLevel},#{liName},#{liDesc})
+  </insert>
+  
+  <update id="updateLevelInfo" parameterType="li">
+  	update level_info
+  	<set>
+  		<if test="liLevel!=null">liLevel = #{liLevel},</if>
+  		<if test="liName!=null">liName = #{liName},</if>
+  		<if test="liDesc!=null">liDesc = #{liDesc},</if>
+  	</set>
+  	where liNum = #{liNum}
+  </update>
+  
+  <delete id="deleteLevelInfo" parameterType="li">
+  	delete from level_info
+  	where liNum=#{liNum}
+  </delete>
+</mapper>
