@@ -12,9 +12,8 @@
 var AjaxUtil = function(conf){
 	var xhr = new XMLHttpRequest();
 	var url = conf.url;
-	var method = conf.method?conf.method:'GET';
-	var param = conf.param?conf.param:'{}';
-	
+	var method = conf.method;
+	var param = conf.param;
 	var success = conf.success?conf.success:function(res){
 		alert(res);
 	}
@@ -52,9 +51,12 @@ window.addEventListner('load',function(){
 
 window.addEventListener('load',function(){
 	var conf= {
-			url : '/levelinfo',
+			url : '/ict/levelinfo',
+			method : 'GET',
 			success : function(res){
 				res=JSON.parse(res);
+				console.log('res');
+				console.log(res);
 				var html='';
 				for(var li of res){
 					 html +='<tr id="lv' + li.liNum +'">';
